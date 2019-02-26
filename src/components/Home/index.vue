@@ -44,7 +44,7 @@
 					<h3 style="display:inline-block">图书新闻</h3>&nbsp;&nbsp;<a href="#" style="text-decoration: none;color:cornflowerblue;font-size: 12px">更多>></a>
 				</div>
 				<el-carousel trigger="click" height="180px" style="border:1px solid rgb(230, 229, 229)">
-					<el-carousel-item v-for="item in bookNews" :key="item" style="padding:0 20px 0 20px">
+					<el-carousel-item v-for="item in bookNews" :key="item.id" style="padding:0 20px 0 20px">
 						<div style="float:left">
 							<h3>{{item.name}}</h3>
 							<p style="width:500px;font-size:14px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{item.content}}</p>
@@ -56,6 +56,21 @@
 					</el-carousel-item>
 				</el-carousel>
 			</div>
+			<div class="new-movie">
+				<div class="title">
+					<h3 style="display:inline-block">最新电影</h3>&nbsp;&nbsp;<a href="#" style="text-decoration: none;color:cornflowerblue;font-size: 12px">更多>></a>
+				</div>
+				<div class="movie-list">
+					<ul>
+						<a href="#" v-for="item in newMovie" :key="item.id">
+							<li>
+								<img :src="item.images.small" alt="">
+								<p style="font-size:14px">{{item.title}}</p>
+							</li>
+						</a>
+					</ul>
+				</div>
+			</div>
 		</div>
 
 		<div class="main-right">
@@ -65,10 +80,10 @@
 			<div class="hot-tags">
 				<h3 style="display:inline-block">热门标签</h3>&nbsp;&nbsp;<a href="#" style="text-decoration: none;color:cornflowerblue;font-size: 12px">所有热门>></a>
 				<hr>
-				<div class="tags-content" v-for="tag in tags">
+				<div class="tags-content" v-for="tag in tags" :key="tag.id">
 					<p class="tags-title" style="font-size:14px;margin-left:5px;height: 8px">{{tag.title}}</p>
 					<ul class="tags-item">
-						<a href="" v-for="item in tag.category"><li>{{item}}</li></a>
+						<a href="" v-for="item in tag.category" :key="item.id"><li>{{item}}</li></a>
 						<a :href="tag.more">更多>></a>
 					</ul>
 				</div>
@@ -79,10 +94,9 @@
 					<hr>
 					<div class="book250-item">
 						<ul>
-							<a href="#" v-for="item in book250"><li><img :src="item.urlImg" alt=""></li>
+							<a href="#" v-for="item in book250" :key="item.id"><li><img :src="item.urlImg" alt=""></li>
 								<span style="display:inline-block">{{item.name}}</span>
 							</a>
-							
 						</ul>
 					</div>
 				</div>
@@ -94,12 +108,13 @@
 <script>
 import { getBook,doubanBook } from '@/api/getBook.js'
 import { getArticle } from '@/api/getArticle.js'
+var ad1 = require('./images/ad1.jpg')
 export default {
 	name: 'Home',
 	data(){
 		return {
-			ad:require('./images/ad.jpg'),
-			ad2:require('./images/ad.png'),
+			ad: require('./images/ad1.jpg'),
+			ad2: require('./images/ad2.png'),
 			bookList:[],
 			tags:[
 				{title:'文学',category:['小说','随笔','日本文学','小说','通话','名著','散文','诗歌','港台'],more:''},
@@ -109,7 +124,8 @@ export default {
 				{title:'经管',category:['经济学','随笔','家具','小说','通话','名著','健康','诗歌','营销'],more:''},
 				{title:'科技',category:['理财','随笔','股票','小说','通话','名著','算法','通信','网络神经'],more:''}
 			],
-			article:[]
+			article:[],
+			newMovies:[]
 		}
 	},
 	created(){
@@ -123,7 +139,8 @@ export default {
 			console.log(this.article)
 		})
 		doubanBook({}).then(rs=>{
-			console.log(rs)
+			console.log(rs.data.subjects)
+			this.newMovies = rs.data.subjects
 		})
 	},
 	computed: {
@@ -146,6 +163,9 @@ export default {
 		},
 		bookNews(){
 			return this.article.slice(0,3)
+		},
+		newMovie(){
+			return this.newMovies.slice(0,10)
 		}
 	},
 }
@@ -158,15 +178,11 @@ export default {
 		height: 1000px
 		.main-left
 			float left
-			
 			.el-carousel
-				background rgba(200,200,200,.5)
 				width 710px
 				.new-books
 					padding 0
 					margin 0
-					display flex
-					flex-wrap wrap
 					.book-item
 						display block
 						width 120px
@@ -183,7 +199,27 @@ export default {
 							display block
 							margin-top 5px
 							font-size 11px
-						
+
+			.movie-list
+				width 710px
+				border 1px solid red
+				ul
+					padding 0
+					margin 0
+					display flex
+					flex-wrap wrap
+					margin-left 35px
+					a
+						text-decoration none
+						display inline-block
+						li
+							list-style none
+							padding 10px
+							padding-bottom 60px
+							img 
+								width 128px
+					
+
 		.main-right
 			float left
 			margin-top 59px
@@ -203,7 +239,7 @@ export default {
 							display inline-block
 							text-decoration none
 							font-size 12px
-							
+					
 							li
 								list-style none
 								padding 5px
