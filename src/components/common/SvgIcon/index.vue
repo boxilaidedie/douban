@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<svg class="svg-icon" aria-hidden="true" :style="{color:iconColor}"><use :xlink:href="iconName"></use></svg>
+		<svg class="svg-icon" aria-hidden="true" :style="{color:iconColor,fontSize:iconSize}"><use :xlink:href="iconName"></use></svg>
 	</div>
 	
 </template>
@@ -15,7 +15,9 @@ export default {
 		},
 		color:{
 			type: String,
-			required: true
+		},
+		iconSize:{
+			type: String,
 		}
 	},
 	computed: {

@@ -7,9 +7,11 @@ import Vuex from 'vuex'
 import 'normalize.css'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
+import icon from './icons/iconfont.js'
+import './icons/iconfont.css'
 
 import Svgicon from '@/components/common/SvgIcon/index'
-Vue.component('svg-icon',Svgicon)
+Vue.component('icon-svg',Svgicon)
 
 
 Vue.config.productionTip = false

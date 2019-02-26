@@ -4,8 +4,8 @@ import cookies from 'js-cookie'
 
 //创建axios 实例
 const service = axios.create({
-	baseURL : 'http://content.xfyun.cn',
-	timeout:800
+	baseURL : 'https://easy-mock.com/mock/5c6f5a45e1bf2b67057e3ebc/api',
+	timeout:5000
 })
 
 //axios request拦截器配置
