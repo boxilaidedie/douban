@@ -108,6 +108,7 @@
 <script>
 import { getBook,doubanBook } from '@/api/getBook.js'
 import { getArticle } from '@/api/getArticle.js'
+import request from '../../api/request'
 var ad1 = require('./images/ad1.jpg')
 export default {
 	name: 'Home',
@@ -140,7 +141,20 @@ export default {
 		})
 		doubanBook({}).then(rs=>{
 			console.log(rs.data.subjects)
-			this.newMovies = rs.data.subjects
+			let _idUrl =[]
+			
+			for(var index in rs.data.subjects){
+				_idUrl.push('/api/movie/subject/' + rs.data.subjects[index].id)
+			}
+			console.log(_idUrl)
+			for(let index in _idUrl){
+				request({
+					url:_idUrl[index],
+					method: 'get',
+				}).then(rs=>{
+					
+				})
+			}
 		})
 	},
 	computed: {
