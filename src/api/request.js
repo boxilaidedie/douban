@@ -16,7 +16,7 @@ service.interceptors.request.use(config => {
 	return config
 },error => {
 	Message({
-		message:error.message,
+		message:'请求超时5000ms'+ error.message,
 		type:'error',
 	})
 })
@@ -25,9 +25,18 @@ service.interceptors.request.use(config => {
 //axios response拦截器
 service.interceptors.response.use(response => {
 	//过滤服务器无权限操作
+	if(response.status == 200){
+		return response
+	}else{
+		Message({
+			message:'响应失败（拦截器AXIOS）',
+			type:'error',
+		})
+	}
+	
 },error => {
 	Message({
-		message:error.message,
+		message:'响应失败（拦截器AXIOS）'+ error.message,
 		type:'error',
 	})
 })

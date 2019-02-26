@@ -1,8 +1,8 @@
 import request from './request'
 
-export function getBook(query) {
+export function getArticle(query) {
     return request({
-      url: '/bookname',
+      url: '/article',
       method: 'get',
       params: query
     })
