@@ -4,7 +4,7 @@ import cookies from 'js-cookie'
 
 //创建axios 实例
 const service = axios.create({
-	baseURL : 'https://easy-mock.com/mock/5c6f5a45e1bf2b67057e3ebc/api',
+	// baseURL : 'https://easy-mock.com/mock/5c6f5a45e1bf2b67057e3ebc/api',
 	timeout:5000
 })
 

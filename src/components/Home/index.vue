@@ -1,6 +1,6 @@
 <template>
 	<div class="main">
-		
+
 			<div class="ad">
 				<img :src="ad" alt="">
 			</div>
@@ -92,7 +92,7 @@
 </template>
 
 <script>
-import { getBook } from '@/api/getBook.js'
+import { getBook,doubanBook } from '@/api/getBook.js'
 import { getArticle } from '@/api/getArticle.js'
 export default {
 	name: 'Home',
@@ -121,6 +121,9 @@ export default {
 		getArticle(query).then((rs)=>{
 			this.article = rs.data.data
 			console.log(this.article)
+		})
+		doubanBook({}).then(rs=>{
+			console.log(rs)
 		})
 	},
 	computed: {
